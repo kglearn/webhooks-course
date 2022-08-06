@@ -7,6 +7,7 @@ exports.handler = async (event, context) => {
     const username = body.sender.login;
     const avatarUrl = body.sender.avatar_url;
     const repoName = body.repository.name;
+    console.log(process.env.DISCORD_WEBHOOK_URL)
     const res = await axios.post(process.env.DISCORD_WEBHOOK_URL, {
       content: `:taco: :taco: :taco: ${username} just starred ${repoName}! :rocket: :muscle: :tada: :taco:`,
       embeds: [
@@ -22,6 +23,6 @@ exports.handler = async (event, context) => {
       statusCode: 204,
     };
   } catch (err) {
-    return { statusCode: 500, body: err.toString() };
+    return { statusCode: 500, body: err.toString(), url: process.env.DISCORD_WEBHOOK_URL, typeUrl: typeof(process.env.DISCORD_WEBHOOK_URL) };
   }
 };
